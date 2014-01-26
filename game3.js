@@ -2,11 +2,8 @@
 var TAU = 2.0 * Math.PI;
 var ICONS_FOLDER = "icons/";
 
-var g_image;
 var g_log;
 var g_form;
-//var g_canvas;
-//var g_time;
 
 var g_prevPlaythrough;
 var g_curPlayThrough;
@@ -18,9 +15,34 @@ function playthrough(element) {
 }
 
 function onLoad() {
-	g_image = document.getElementById("image");
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
+
+	var images = [
+		"artist.svg",
+		"athlete.svg",
+		"building_a_bridge.svg",
+		"explorer.svg",
+		"finding_new_land.svg",
+		"fire.svg",
+		"general.svg",
+		"god.svg",
+		"moc.svg",
+		"olympics.svg",
+		"oracle.svg",
+		"pirate.svg",
+		"priest.svg",
+		"prisoner.svg",
+		"prectection_of_realm.svg",
+		"rock.svg",
+		"scouting.svg",
+		"spreading_the_word.svg",
+		"warrior.svg",
+		"water.svg"
+	];
+	for (var i = 0; i < images.length; i++) {
+		(new Image).src = ICONS_FOLDER + images[i];
+	}
 
 	var prevElement = null;
 	switch (Math.floor(Math.random() * 3.0)) {
@@ -38,34 +60,16 @@ function onLoad() {
 	g_prevPlaythrough = playthrough(prevElement);
 	g_curPlaythrough = playthrough(prevElement);
 
-	//g_canvas = document.getElementById("canvas");
-	//g_time = 0.0;
-	//requestAnimationFrame(animate);
 	onNewGame();
 }
 
-function animate() {
-	var context = canvas.getContext("2d");
-	//g_time += (1.0 / 60.0);
-
-	context.clearRect(0.0, 0.0, canvas.width, canvas.height);
-	context.fillStyle = "#FFFFFF";
-	context.beginPath();
-	context.arc(
-		0.5 * canvas.width + 20.0 * Math.cos(g_time * TAU), 
-		0.5 * canvas.height + 20.0 * Math.sin(g_time * TAU), 
-		20.0, 
-		0.0, 
-		2.0 * Math.PI
-	);
-	context.closePath();
-	context.fill();
-
-	requestAnimationFrame(animate);
-}
-
 function loadImage(path) {
-	g_image.src = ICONS_FOLDER + path;
+	var fullPath = ICONS_FOLDER + path;
+	var image = $("#image");
+	image.fadeTo("1s", 0.0, function() {
+		image.attr("src", fullPath);
+		image.fadeTo("1s", 1.0);
+	});
 }
 
 function clearLog() {

@@ -2,6 +2,7 @@
 <head>
 <title>Judgement</title>
 <meta name="viewport" content="width=device-width"/>
+<script src="jquery-2.1.0.min.js"></script>
 <script src="game3.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Exo+2:600|IM+Fell+English' rel='stylesheet' type='text/css'>
 <style>
@@ -44,6 +45,7 @@ hr {border: 1px solid white;}
 	background: #0000cc; color: white;
 }
 
+#image {height: 50%; opacity: 0.0;}
 #log {height: 30%; padding: 0px 20%; overflow: auto; overflow-x: hidden;}
 #form input[type="button"] {display: inline;}
 
@@ -57,8 +59,7 @@ hr {border: 1px solid white;}
 </head>
 <body>
 
-<!--<div><canvas id="canvas" width="200" height="200"/></div>-->
-<div align="center"><img id="image" alt="image" style="height: 50%;"/></div>
+<div align="center"><img id="image"/></div>
 <div id="log"></div>
 <div><form id="form" align="center"></form></div>
 <script>onLoad()</script>
