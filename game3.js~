@@ -1,5 +1,6 @@
 
 var TAU = 2.0 * Math.PI;
+var ICONS_FOLDER = "";
 
 var g_image;
 var g_log;
@@ -63,6 +64,10 @@ function animate() {
 	requestAnimationFrame(animate);
 }
 
+function loadImage(path) {
+	g_image.src = ICONS_FOLDER + path;
+}
+
 function clearLog() {
 	g_log.innerHTML = null;
 }
@@ -118,7 +123,7 @@ function setOptions(allowText, options) {
 
 function onNewGame() {
 	g_prevPlaythrough.element = g_curPlaythrough.element;
-	g_image.src = "icons/god.svg";	
+	loadImage("god.svg");
 	clearLog();
 	appendLog( 
 		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
@@ -151,7 +156,7 @@ function onNewGame() {
 
 function onChooseFire() {
 	g_curPlaythrough.element = "Fire";
-	g_image.src = "icons/fire.svg";
+	loadImage("fire.svg");
 	appendLog( 
 		"&quot;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -168,7 +173,7 @@ function onChooseFire() {
 
 function onChooseEarth() {
 	g_curPlaythrough.element = "Earth";
-	g_image.src = "icons/rock.svg";
+	loadImage("rock.svg");
 	appendLog( 
 		"&quot;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -185,7 +190,7 @@ function onChooseEarth() {
 
 function onChooseWater() {
 	g_curPlaythrough.element = "Water";
-	g_image.src = "icons/water.svg";
+	loadImage("water.svg");
 	appendLog( 
 		"&quot;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -201,7 +206,7 @@ function onChooseWater() {
 }
 
 function onBuildBridge() {
-	g_image.src = "icons/building_a_bridge.svg";
+	loadImage("building_a_bridge.svg");
 	appendLog( 
 		"You enjoyed helping the village with the bridge."
 	);
@@ -213,7 +218,7 @@ function onBuildBridge() {
 }
 
 function onSeekOracle() {
-	g_image.src = "icons/oracle.svg";
+	loadImage("oracle.svg");
 	appendLog( 
 		"You seek out the oracle and spend many years with her. "
 	);
@@ -225,7 +230,7 @@ function onSeekOracle() {
 }
 
 function onBecomeWarrior() {
-	g_image.src = "icons/warrior.svg";
+	loadImage("warrior.svg");
 	appendLog( 
 		"You join the roman legion as a warrior, and fight in many battles. "
 	);
@@ -237,7 +242,7 @@ function onBecomeWarrior() {
 }
 
 function onBecomeScout() {
-	g_image.src = "icons/scouting.svg";
+	loadImage("scouting.svg");
 	appendLog( 
 		"You join the roman legion as a scout. "
 	);
@@ -249,7 +254,7 @@ function onBecomeScout() {
 }
 
 function onCraftsman() {
-	g_image.src = "icons/moc.svg";
+	loadImage("moc.svg");
 	appendLog("CRAFTSMAN");
 	appendSeperator();
 	setOptions(false, [
@@ -258,7 +263,7 @@ function onCraftsman() {
 }
 
 function onAthlete() {
-	g_image.src = "icons/athlete.svg";
+	loadImage("athlete.svg");
 	appendLog("ATHLETE");
 	appendSeperator();
 	setOptions(false, [
@@ -267,7 +272,7 @@ function onAthlete() {
 }
 
 function onPriest() {
-	g_image.src = "icons/priest.svg";
+	loadImage("priest.svg");
 	appendLog("PRIEST");
 	appendSeperator();
 	setOptions(false, [
@@ -276,6 +281,7 @@ function onPriest() {
 }
 
 function onExplorer() {
+	loadImage("explorer.svg");
 	appendLog("EXPLORER");
 	appendSeperator();
 	setOptions(false, [
@@ -284,6 +290,7 @@ function onExplorer() {
 }
 
 function onProtector() {
+	loadImage("protection_of_realm.svg");
 	appendLog("PROTECTOR");
 	appendSeperator();
 	setOptions(false, [
@@ -292,6 +299,7 @@ function onProtector() {
 }
 
 function onPirate() {
+	loadImage("pirate.svg");
 	appendLog("PIRATE");
 	appendSeperator();
 	setOptions(false, [

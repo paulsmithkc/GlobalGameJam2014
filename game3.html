@@ -7,7 +7,11 @@
 <style>
 
 body {
-	background: black; 
+	background-color: #6f6f6f; 
+	background-image: url('edge3.png');
+	background-attachment: fixed;
+	background-position: left top;
+	background-repeat: repeat-x;
 	color: white; 
 	border: 0px; 
 	margin: 0px; 
@@ -40,13 +44,12 @@ hr {border: 1px solid white;}
 	background: #0000cc; color: white;
 }
 
-#image {width: 200px; height: 200px;}
-#log {height: 30%; overflow: auto; overflow-x: hidden;}
+#log {height: 30%; padding: 0px 20%; overflow: auto; overflow-x: hidden;}
 #form input[type="button"] {display: inline;}
 
 @media (max-width: 600px)
 {
-	#log {height: 25%;}
+	#log {height: 25%; padding: 0px 10px;}
 	#form input[type="button"] {display: block; width:100%;}
 }
 
@@ -55,7 +58,7 @@ hr {border: 1px solid white;}
 <body>
 
 <!--<div><canvas id="canvas" width="200" height="200"/></div>-->
-<div align="center"><img id="image" alt="image"/></div>
+<div align="center"><img id="image" alt="image" style="height: 50%;"/></div>
 <div id="log"></div>
 <div><form id="form" align="center"></form></div>
 <script>onLoad()</script>
