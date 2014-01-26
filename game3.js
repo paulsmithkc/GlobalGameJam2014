@@ -183,31 +183,15 @@ function onNewGame() {
 	clearLog();
 	appendLog( 
 		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
-		"Before you stands Zeus. &quot;Before you stand three items: Fire, Earth, and Water. " +
+		"Before you stands Zeus. &#8220;Before you stand three items: Fire, Earth, and Water. " +
 		"You must choose one of these.&quot; "
 	);
 	appendSeperator();
-	switch (g_prevPlaythrough.element) {
-	case "Fire":
-		setOptions(false, [
-			option("Choose Earth", onChooseEarth),
-			option("Choose Water", onChooseWater)
-		]);
-		break;
-	case "Water":
-		setOptions(false, [
-			option("Choose Fire", onChooseFire), 
-			option("Choose Earth", onChooseEarth)
-		]);
-		break;
-	case "Earth":
-	default:
-		setOptions(false, [
-			option("Choose Fire", onChooseFire), 
-			option("Choose Water", onChooseWater)
-		]);
-		break;
-	}
+	setOptions(false, [
+		option("Choose Fire", onChooseFire), 
+		option("Choose Earth", onChooseEarth),
+		option("Choose Water", onChooseWater)
+	]);
 }
 
 function onChooseFire() {
