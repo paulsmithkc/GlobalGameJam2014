@@ -4,6 +4,7 @@ var ICONS_FOLDER = "icons/";
 var STORAGE_VERSION = "0.1";
 var STORAGE_KEY = "judgement";
 
+var g_sound;
 var g_log;
 var g_form;
 
@@ -62,6 +63,7 @@ function saveData()
 }
 
 function onLoad() {
+	g_sound = null;
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
 
@@ -123,14 +125,15 @@ function loadImage(path) {
 }
 
 function playSound(name) {
-	var sound = new Audio(name + ".mp3");
-	sound.play();
-
-	//var player = document.getElementById("sfx-player");
-	//player.src = name + ".mp3";
-	//player.src = name + ".ogg";
-	//player.load();
-	//player.play();
+	if (g_sound == null) { 
+		g_sound = new Audio("sfx/" + name + ".mp3");
+		g_sound.play();
+	} else {
+		g_sound.pause();
+		g_sound.src = "sfx/" + name + ".mp3"; 
+		g_sound.load();
+		g_sound.play();
+	}
 }
 
 function clearLog() {
