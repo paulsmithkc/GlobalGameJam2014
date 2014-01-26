@@ -18,9 +18,9 @@ function onLoad() {
 	document.body.style.height = windowHeight;
 	g_log.style.width = windowWidth;
 	g_form.style.width = windowWidth;
-	g_image.height = windowHeight / 3.0;
-	g_log.style.height = windowHeight / 3.0;
-	g_form.style.height = windowHeight / 3.0;
+	g_image.height = 0.5 * windowHeight;
+	g_log.style.height = 0.25 * windowHeight;
+	g_form.style.height = 0.25 * windowHeight;
 
 	//g_canvas = document.getElementById("canvas");
 	//g_time = 0.0;
@@ -168,14 +168,14 @@ function onBuildBridge() {
 	);
 	appendSeperator();
 	setOptions(false, [
-		option("Seek out a craftsman to learn the art of stonework", onSeekCraftsman),
-		option("Try out for the olympic games", onJoinOlympicGames)
+		option("Seek out a craftsman to learn the art of stonework", onCraftsman),
+		option("Try out for the olympic games", onAthlete)
 	]);
 }
 
 function onSeekOracle() {
 	appendLog( 
-		"You seek out the oracle and spent many years with her. "
+		"You seek out the oracle and spend many years with her. "
 	);
 	appendSeperator();
 	setOptions(false, [
@@ -185,21 +185,72 @@ function onSeekOracle() {
 }
 
 function onBecomeWarrior() {
+	appendLog( 
+		"You join the roman legion as a warrior, and fight in many battles. "
+	);
+	appendSeperator();
+	setOptions(false, [
+		option("Become a protector of the realm", onProtector),
+		option("Become a pirate", onPirate)
+	]);
 }
 
 function onBecomeScout() {
+	appendLog( 
+		"You join the roman legion as a scout. "
+	);
+	appendSeperator();
+	setOptions(false, [
+		option("Become an explorer", onExplorer),
+		option("Try out for the olympic games", onAthlete)
+	]);
 }
 
-function onSeekCraftsman() {
+function onCraftsman() {
+	appendLog("CRAFTSMAN");
+	appendSeperator();
+	setOptions(false, [
+		option("New Game", onNewGame)
+	]);
 }
 
-function onJoinOlympicGames() {
+function onAthlete() {
+	appendLog("ATHLETE");
+	appendSeperator();
+	setOptions(false, [
+		option("New Game", onNewGame)
+	]);
 }
 
 function onPriest() {
+	appendLog("PRIEST");
+	appendSeperator();
+	setOptions(false, [
+		option("New Game", onNewGame)
+	]);
 }
 
 function onExplorer() {
+	appendLog("EXPLORER");
+	appendSeperator();
+	setOptions(false, [
+		option("New Game", onNewGame)
+	]);
 }
 
+function onProtector() {
+	appendLog("PROTECTOR");
+	appendSeperator();
+	setOptions(false, [
+		option("New Game", onNewGame)
+	]);
+}
+
+function onPirate() {
+	appendLog("PIRATE");
+	appendSeperator();
+	setOptions(false, [
+		option("New Game", onNewGame)
+	]);
+}
 
