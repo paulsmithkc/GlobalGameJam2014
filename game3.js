@@ -41,7 +41,9 @@ function onLoad() {
 		"water.svg"
 	];
 	for (var i = 0; i < images.length; i++) {
-		(new Image).src = ICONS_FOLDER + images[i];
+		var path = images[i];
+		var img = new Image();
+		img.src = ICONS_FOLDER + path;
 	}
 
 	var prevElement = null;

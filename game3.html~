@@ -11,7 +11,7 @@ body {
 	background-color: #6f6f6f; 
 	background-image: url('edge3.png');
 	background-attachment: fixed;
-	background-position: left top;
+	background-position: 0px 0px;
 	background-repeat: repeat-x;
 	color: white; 
 	border: 0px; 
@@ -45,7 +45,7 @@ hr {border: 1px solid white;}
 	background: #0000cc; color: white;
 }
 
-#image {height: 50%;}
+#image {height: 50%; opacity: 0.0;}
 #log {height: 30%; padding: 0px 20%; overflow: auto; overflow-x: hidden;}
 #form input[type="button"] {display: inline;}
 
