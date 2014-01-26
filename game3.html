@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>Judgement</title>
-<meta name="viewport" content="width=400, initial-scale=1">
+<meta name="viewport" content="width=device-width"/>
 <script src="game3.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Exo+2:600|IM+Fell+English' rel='stylesheet' type='text/css'>
 <style>
@@ -17,9 +17,7 @@ body {
 }
 hr {border: 1px solid white;}
 
-#image {padding: 0px; border: 0px; margin: 0px; width: 100%;}
-#log {overflow: auto; overflow-x: hidden; height: 25%;}
-#form {overflow: auto; overflow-x: hidden;}
+#image {padding: 0px; border: 0px; margin: 0px;}
 #form input[type="button"] {
 	color: white; 
 	box-shadow: 
@@ -33,10 +31,19 @@ hr {border: 1px solid white;}
 	border-radius: 10px;
 	font-size: 14pt;
 	font-family: 'IM Fell English', serif;
-	width: 100%;
 }
 #form input[type="button"]:hover {
 	background: #0000cc; color: white;
+}
+
+#image {width: 100%; max-height: 50%;}
+#log {height: 30%; overflow: auto; overflow-x: hidden;}
+#form input[type="button"] {display: inline;}
+
+@media (max-width: 600px)
+{
+	#log {height: 25%;}
+	#form input[type="button"] {display: block; width:100%;}
 }
 
 </style>
@@ -46,7 +53,7 @@ hr {border: 1px solid white;}
 <!--<div><canvas id="canvas" width="200" height="200"/></div>-->
 <div><img id="image" align="center" alt="image"/></div>
 <div id="log"></div>
-<div><form id="form"></form></div>
+<div><form id="form" align="center"></form></div>
 <script>onLoad()</script>
 
 </body>

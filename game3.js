@@ -7,10 +7,35 @@ var g_form;
 //var g_canvas;
 //var g_time;
 
+var g_prevPlaythrough;
+var g_curPlayThrough;
+
+function playthrough(element) {
+	return { 
+		"element" : element
+	};
+}
+
 function onLoad() {
 	g_image = document.getElementById("image");
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
+
+	var prevElement = null;
+	switch (Math.floor(Math.random() * 3.0)) {
+	case 0.0:
+		prevElement = "Fire"
+		break;
+	case 1.0:
+		prevElement = "Water"
+		break;
+	case 2.0:
+	default:
+		prevElement = "Earth"
+		break;
+	}
+	g_prevPlaythrough = playthrough(prevElement);
+	g_curPlaythrough = playthrough(prevElement);
 
 	//g_canvas = document.getElementById("canvas");
 	//g_time = 0.0;
@@ -82,8 +107,6 @@ function setOptions(allowText, options) {
 	}
 
 	for (var i = 0; i < options.length; i++) {
-		if (i > 0) { g_form.appendChild(document.createElement("br")); }
-
 		var optionField = document.createElement("input");
 		optionField.name = "option";
 		optionField.type = "button";
@@ -94,6 +117,7 @@ function setOptions(allowText, options) {
 }
 
 function onNewGame() {
+	g_prevPlaythrough.element = g_curPlaythrough.element;
 	clearLog();
 	appendLog( 
 		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
@@ -101,15 +125,31 @@ function onNewGame() {
 		"You must choose one of these.&quot; "
 	);
 	appendSeperator();
-	setOptions(false, [
-		option("Choose Fire", onChooseFire), 
-		option("Choose Earth", onChooseEarth),
-		option("Choose Water", onChooseWater),
-		//option("Defy Zeus", onDefyZeus),
-	]);
+	switch (g_prevPlaythrough.element) {
+	case "Fire":
+		setOptions(false, [
+			option("Choose Earth", onChooseEarth),
+			option("Choose Water", onChooseWater)
+		]);
+		break;
+	case "Water":
+		setOptions(false, [
+			option("Choose Fire", onChooseFire), 
+			option("Choose Earth", onChooseEarth)
+		]);
+		break;
+	case "Earth":
+	default:
+		setOptions(false, [
+			option("Choose Fire", onChooseFire), 
+			option("Choose Water", onChooseWater)
+		]);
+		break;
+	}
 }
 
 function onChooseFire() {
+	g_curPlaythrough.element = "Fire";
 	appendLog( 
 		"&quot;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -125,6 +165,7 @@ function onChooseFire() {
 }
 
 function onChooseEarth() {
+	g_curPlaythrough.element = "Earth";
 	appendLog( 
 		"&quot;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -140,6 +181,7 @@ function onChooseEarth() {
 }
 
 function onChooseWater() {
+	g_curPlaythrough.element = "Water";
 	appendLog( 
 		"&quot;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
