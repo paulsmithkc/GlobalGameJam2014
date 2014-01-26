@@ -127,7 +127,7 @@ function playSound(name) {
 	player.src = name + ".mp3";
 	//player.src = name + ".ogg";
 	player.load();
-	//player.play();
+	player.play();
 }
 
 function clearLog() {
