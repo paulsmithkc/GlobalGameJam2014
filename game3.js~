@@ -1,6 +1,8 @@
 
 var TAU = 2.0 * Math.PI;
-var ICONS_FOLDER = ""; //"icons/";
+var ICONS_FOLDER = "icons/";
+var STORAGE_VERSION = "0.2";
+var STORAGE_KEY = "judgement";
 
 var g_log;
 var g_form;
@@ -12,6 +14,51 @@ function playthrough(element) {
 	return { 
 		"element" : element
 	};
+}
+
+function supportsLocalStorage()
+{
+    try {
+        return 'localStorage' in window && window['localStorage'] !== null;
+    } catch (e) {
+        return false;
+    }
+}
+
+function loadData()
+{
+    if (!supportsLocalStorage()) return false;
+    try
+    {
+        var storage = window.localStorage;
+        var storedData = JSON.parse(storage.getItem(STORAGE_KEY));
+        if (storedData == null || storedData.version != STORAGE_VERSION) { return false; }
+        g_curPlaythrough = storedData.playthrough;
+        return true;
+    }
+    catch (e)
+    {
+        return false;
+    }
+}
+
+function saveData()
+{
+    if (!supportsLocalStorage()) return false;
+    try
+    {
+        var storage = window.localStorage;
+        var storedData = {
+            'version': STORAGE_VERSION,
+            'playthrough': g_curPlaythrough
+        };
+        storage.setItem(STORAGE_KEY, JSON.stringify(storedData));
+        return true;
+    }
+    catch (e)
+    {
+        return false;
+    }
 }
 
 function onLoad() {
@@ -33,7 +80,7 @@ function onLoad() {
 		"pirate.svg",
 		"priest.svg",
 		"prisoner.svg",
-		"prectection_of_realm.svg",
+		"protection_of_realm.svg",
 		"rock.svg",
 		"scouting.svg",
 		"spreading_the_word.svg",
@@ -46,21 +93,22 @@ function onLoad() {
 		img.src = ICONS_FOLDER + path;
 	}
 
-	var prevElement = null;
-	switch (Math.floor(Math.random() * 3.0)) {
-	case 0.0:
-		prevElement = "Fire"
-		break;
-	case 1.0:
-		prevElement = "Water"
-		break;
-	case 2.0:
-	default:
-		prevElement = "Earth"
-		break;
+	if (!loadData()) {
+		var prevElement = null;
+		switch (Math.floor(Math.random() * 3.0)) {
+		case 0.0:
+			prevElement = "Fire"
+			break;
+		case 1.0:
+			prevElement = "Water"
+			break;
+		case 2.0:
+		default:
+			prevElement = "Earth"
+			break;
+		}
+		g_curPlaythrough = playthrough(prevElement);
 	}
-	g_prevPlaythrough = playthrough(prevElement);
-	g_curPlaythrough = playthrough(prevElement);
 
 	onNewGame();
 }
@@ -128,7 +176,9 @@ function setOptions(allowText, options) {
 }
 
 function onNewGame() {
-	g_prevPlaythrough.element = g_curPlaythrough.element;
+	g_prevPlaythrough = JSON.parse(JSON.stringify(g_curPlaythrough))
+	saveData();
+
 	loadImage("god.svg");
 	clearLog();
 	appendLog( 
