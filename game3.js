@@ -123,14 +123,14 @@ function loadImage(path) {
 }
 
 function playSound(name) {
-	var sound = new Audio(name + ".mp3");
+	var sound = new Audio("sfx/" + name + ".mp3");
 	sound.play();
 
 	//var player = document.getElementById("sfx-player");
 	//player.src = name + ".mp3";
 	//player.src = name + ".ogg";
 	//player.load();
-	player.play();
+	//player.play();
 }
 
 function clearLog() {
