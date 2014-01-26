@@ -12,16 +12,6 @@ function onLoad() {
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
 
-	var windowWidth = window.innerWidth;
-	var windowHeight = window.innerHeight;
-	document.body.style.width = windowWidth;
-	document.body.style.height = windowHeight;
-	g_log.style.width = windowWidth;
-	g_form.style.width = windowWidth;
-	g_image.height = 0.5 * windowHeight;
-	g_log.style.height = 0.25 * windowHeight;
-	g_form.style.height = 0.25 * windowHeight;
-
 	//g_canvas = document.getElementById("canvas");
 	//g_time = 0.0;
 	//requestAnimationFrame(animate);
@@ -60,7 +50,9 @@ function appendLog(text) {
 }
 
 function appendSeperator() {
-	appendLog("-----------------------------");
+	var hr = document.createElement("hr");
+	g_log.appendChild(hr);
+	g_log.scrollTop = g_log.scrollHeight;
 }
 
 function option(text, callback) {
@@ -90,7 +82,7 @@ function setOptions(allowText, options) {
 	}
 
 	for (var i = 0; i < options.length; i++) {
-		g_form.appendChild(document.createElement("br"));
+		if (i > 0) { g_form.appendChild(document.createElement("br")); }
 
 		var optionField = document.createElement("input");
 		optionField.name = "option";
