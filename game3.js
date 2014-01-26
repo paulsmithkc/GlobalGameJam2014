@@ -17,7 +17,7 @@ function onLoad() {
 
 function animate() {
 	var context = canvas.getContext("2d");
-	g_time += (1.0 / 60.0);
+	//g_time += (1.0 / 60.0);
 
 	context.clearRect(0.0, 0.0, canvas.width, canvas.height);
 	context.fillStyle = "#FFFFFF";
@@ -91,85 +91,102 @@ function setOptions(allowText, options) {
 function onNewGame() {
 	clearLog();
 	appendLog( 
-		"You find yourself in the forest. Your stomach growls, reminding you of how " +
-		"long it has been since your last meal. You spot a deer in the woods ahead."
+		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
+		"Before you stands Zeus. &quot;Before you stand three items: Fire, Earth, and Water. " +
+		"You must choose one of these.&quot; "
 	);
 	appendSeperator();
 	setOptions(false, [
-		option("Hunt the deer with your bow.", onHuntDeer), 
-		option("Keep on going, there is bound to be a village nearby.", onSkipDeer)
+		option("Choose Fire", onChooseFire), 
+		option("Choose Earth", onChooseEarth),
+		option("Choose Water", onChooseWater),
+		//option("Defy Zeus", onDefyZeus),
 	]);
 }
 
-function onHuntDeer() {
-	appendLog(
-		"You track the deer for several yards. You finding it grazing among the trees. " +
-		"You arrow hits the deer in the rear quarters and runs away."
+function onChooseFire() {
+	appendLog( 
+		"&quot;When you return you will need to make another choice. " +
+		"You may help build the bridge with the rest of your village. " +
+		"Or you may seek out the oracle, to learn from her. " +
+		"Or you may seek to become a warrior for the roman legion. &quot; "
 	);
 	appendSeperator();
 	setOptions(false, [
-		option("Find your way back to the trail.", onFindWater)
+		option("Help the town finish the bridge", onBuildBridge),
+		option("Seek out the oracle", onSeekOracle),
+		option("Become a warrior the roman legion", onBecomeWarrior)
 	]);
 }
 
-function onSkipDeer() {
-	appendLog(
-		"A snake slithers across the trail."
+function onChooseEarth() {
+	appendLog( 
+		"&quot;When you return you will need to make another choice. " +
+		"You may help build the bridge with the rest of your village. " +
+		"Or you may seek to become a scout for the roman legion. " +
+		"Or you may seek to become a warrior for the roman legion. &quot; "
 	);
 	appendSeperator();
 	setOptions(false, [
-		option("Leave the snake alone.", onFindWater),
-		option("Try to capture the snake and take some of its venom.", onCatchSnake)
+		option("Help the town finish the bridge", onBuildBridge),
+		option("Become a scout for the roman legion", onBecomeScout),
+		option("Become a warrior the roman legion", onBecomeWarrior)
 	]);
 }
 
-function onCatchSnake() {
-	// FIXME
-}
-
-function onFindWater() {
-	appendLog(
-		"You come accross an old shack. Inside the old shack you find a barrel of water. " +
-		"Your lips are parched."
+function onChooseWater() {
+	appendLog( 
+		"&quot;When you return you will need to make another choice. " +
+		"You may help build the bridge with the rest of your village. " +
+		"Or you may seek to become a scout for the roman legion. " +
+		"Or you may seek out the oracle, to learn from her. &quot; "
 	);
 	appendSeperator();
 	setOptions(false, [
-		option("Drink the water.", onDrinkWater),
-		option("Drip some venom into the barrel.", onPoisonWater),
-		option("Leave it alone.", onFindVillage)
+		option("Help the town finish the bridge", onBuildBridge),
+		option("Seek out the oracle", onSeekOracle),
+		option("Become a scout for the roman legion", onBecomeScout)
 	]);
 }
 
-function onDrinkWater() {
-	// FIXME
-}
-
-function onPoisonWater() {
-	// FIXME
-}
-
-function onFindVillage() {
-	appendLog(
-		"You finally come accross a village. They give you cold stares as you approach. " +
-		"When you get closer, one of them asks why you are here."
+function onBuildBridge() {
+	appendLog( 
+		"You enjoyed helping the village with the bridge."
 	);
 	appendSeperator();
 	setOptions(false, [
-		option("I will murder you all!", onMurderVillage),
-		option("I'm just looking for shelter.", onEnterVillage),
-		option("I'm just passing through.", onLeaveVillage)
+		option("Seek out a craftsman to learn the art of stonework", onSeekCraftsman),
+		option("Try out for the olympic games", onJoinOlympicGames)
 	]);
 }
 
-function onMurderVillage() {
-	// FIXME
+function onSeekOracle() {
+	appendLog( 
+		"You seek out the oracle and spent many years with her. "
+	);
+	appendSeperator();
+	setOptions(false, [
+		option("Spread the word of Zeus as a missionary", onPriest),
+		option("Seek out new lands in the name of Zeus", onExplorer)
+	]);
 }
 
-function onEnterVillage() {
-	// FIXME
+function onBecomeWarrior() {
 }
 
-function onLeaveVillage() {
-	// FIXME
+function onBecomeScout() {
 }
+
+function onSeekCraftsman() {
+}
+
+function onJoinOlympicGames() {
+}
+
+function onPriest() {
+}
+
+function onExplorer() {
+}
+
 
