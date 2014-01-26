@@ -129,8 +129,13 @@ function playSound(name) {
 	//var player = document.getElementById("sfx-player");
 	//player.src = name + ".mp3";
 	//player.src = name + ".ogg";
+<<<<<<< HEAD
 	//player.load();
+	//player.play();
+=======
+	player.load();
 	player.play();
+>>>>>>> 3080c07486d7b1558d35573b70e9989f125c371b
 }
 
 function clearLog() {
