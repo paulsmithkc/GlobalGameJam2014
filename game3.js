@@ -197,7 +197,7 @@ function onChooseFire() {
 	g_curPlaythrough.element = "Fire";
 	loadImage("fire.svg");
 	appendLog( 
-		"&quot;When you return you will need to make another choice. " +
+		"&#8220;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
 		"Or you may seek out the oracle, to learn from her. " +
 		"Or you may seek to become a warrior for the roman legion. &quot; "
@@ -214,7 +214,7 @@ function onChooseEarth() {
 	g_curPlaythrough.element = "Earth";
 	loadImage("rock.svg");
 	appendLog( 
-		"&quot;When you return you will need to make another choice. " +
+		"&#8220;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
 		"Or you may seek to become a scout for the roman legion. " +
 		"Or you may seek to become a warrior for the roman legion. &quot; "
@@ -231,7 +231,7 @@ function onChooseWater() {
 	g_curPlaythrough.element = "Water";
 	loadImage("water.svg");
 	appendLog( 
-		"&quot;When you return you will need to make another choice. " +
+		"&#8220;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
 		"Or you may seek to become a scout for the roman legion. " +
 		"Or you may seek out the oracle, to learn from her. &quot; "
