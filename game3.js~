@@ -123,11 +123,14 @@ function loadImage(path) {
 }
 
 function playSound(name) {
-	var player = document.getElementById("sfx-player");
-	player.src = name + ".mp3";
+	var sound = new Audio(name + ".mp3");
+	sound.play();
+
+	//var player = document.getElementById("sfx-player");
+	//player.src = name + ".mp3";
 	//player.src = name + ".ogg";
-	player.load();
-	player.play();
+	//player.load();
+	//player.play();
 }
 
 function clearLog() {
@@ -187,6 +190,7 @@ function onNewGame() {
 	saveData();
 
 	loadImage("god.svg");
+	playSound("Narrator");
 	clearLog();
 	appendLog( 
 		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
@@ -269,6 +273,7 @@ function onBuildBridge() {
 
 function onSeekOracle() {
 	loadImage("oracle.svg");
+	playSound("Oracle");
 	appendLog( 
 		"You seek out the oracle and spend many years with her. "
 	);
@@ -281,6 +286,7 @@ function onSeekOracle() {
 
 function onBecomeWarrior() {
 	loadImage("warrior.svg");
+	playSound("Warrior");
 	appendLog( 
 		"You join the roman legion as a warrior, and fight in many battles. "
 	);
@@ -293,6 +299,7 @@ function onBecomeWarrior() {
 
 function onBecomeScout() {
 	loadImage("scouting.svg");
+	playSound("Scouting");
 	appendLog( 
 		"You join the roman legion as a scout. "
 	);
@@ -305,6 +312,7 @@ function onBecomeScout() {
 
 function onCraftsman() {
 	loadImage("moc.svg");
+	playSound("Semifinal");
 	appendLog("CRAFTSMAN");
 	appendSeperator();
 	setOptions(false, [
@@ -314,6 +322,7 @@ function onCraftsman() {
 
 function onAthlete() {
 	loadImage("athlete.svg");
+	playSound("Semifinal");
 	appendLog("ATHLETE");
 	appendSeperator();
 	setOptions(false, [
@@ -332,6 +341,7 @@ function onPriest() {
 
 function onExplorer() {
 	loadImage("explorer.svg");
+	playSound("Semifinal");
 	appendLog("EXPLORER");
 	appendSeperator();
 	setOptions(false, [
@@ -341,6 +351,7 @@ function onExplorer() {
 
 function onProtector() {
 	loadImage("protection_of_realm.svg");
+	playSound("Semifinal");
 	appendLog("PROTECTOR");
 	appendSeperator();
 	setOptions(false, [
@@ -350,6 +361,7 @@ function onProtector() {
 
 function onPirate() {
 	loadImage("pirate.svg");
+	playSound("Semifinal");
 	appendLog("PIRATE");
 	appendSeperator();
 	setOptions(false, [
