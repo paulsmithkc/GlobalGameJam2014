@@ -122,6 +122,14 @@ function loadImage(path) {
 	});
 }
 
+function playSound(name) {
+	var player = document.getElementById("sfx-player");
+	player.src = name + ".mp3";
+	//player.src = name + ".ogg";
+	player.load();
+	//player.play();
+}
+
 function clearLog() {
 	g_log.innerHTML = null;
 }
@@ -196,6 +204,7 @@ function onNewGame() {
 function onChooseFire() {
 	g_curPlaythrough.element = "Fire";
 	loadImage("fire.svg");
+	playSound("Fire");
 	appendLog( 
 		"&#8220;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -213,6 +222,7 @@ function onChooseFire() {
 function onChooseEarth() {
 	g_curPlaythrough.element = "Earth";
 	loadImage("rock.svg");
+	playSound("Rock");
 	appendLog( 
 		"&#8220;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
@@ -230,6 +240,7 @@ function onChooseEarth() {
 function onChooseWater() {
 	g_curPlaythrough.element = "Water";
 	loadImage("water.svg");
+	playSound("Water");
 	appendLog( 
 		"&#8220;When you return you will need to make another choice. " +
 		"You may help build the bridge with the rest of your village. " +
