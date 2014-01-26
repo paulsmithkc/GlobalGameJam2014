@@ -1,17 +1,30 @@
 
 var TAU = 2.0 * Math.PI;
 
-var g_canvas;
+var g_image;
 var g_log;
 var g_form;
-var g_time;
+//var g_canvas;
+//var g_time;
 
 function onLoad() {
-	g_canvas = document.getElementById("canvas");
+	g_image = document.getElementById("image");
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
-	g_time = 0.0;
-	requestAnimationFrame(animate);
+
+	var windowWidth = window.innerWidth;
+	var windowHeight = window.innerHeight;
+	document.body.style.width = windowWidth;
+	document.body.style.height = windowHeight;
+	g_log.style.width = windowWidth;
+	g_form.style.width = windowWidth;
+	g_image.height = windowHeight / 3.0;
+	g_log.style.height = windowHeight / 3.0;
+	g_form.style.height = windowHeight / 3.0;
+
+	//g_canvas = document.getElementById("canvas");
+	//g_time = 0.0;
+	//requestAnimationFrame(animate);
 	onNewGame();
 }
 
