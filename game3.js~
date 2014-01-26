@@ -276,7 +276,6 @@ function onPriest() {
 }
 
 function onExplorer() {
-	g_image.src = "icons/explorer.svg";
 	appendLog("EXPLORER");
 	appendSeperator();
 	setOptions(false, [
@@ -285,7 +284,6 @@ function onExplorer() {
 }
 
 function onProtector() {
-	g_image.src = "icons/protection_of_realm.svg";
 	appendLog("PROTECTOR");
 	appendSeperator();
 	setOptions(false, [
@@ -294,7 +292,6 @@ function onProtector() {
 }
 
 function onPirate() {
-	g_image.src = "icons/pirate.svg";
 	appendLog("PIRATE");
 	appendSeperator();
 	setOptions(false, [

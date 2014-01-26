@@ -21,6 +21,11 @@ hr {border: 1px solid white;}
 	padding: 0px; 
 	border: 0px; 
 	margin: 0px;
+	width: 100px;
+	height: 100px;
+	background-image: url('icons.svg');
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
 }
 #form input[type="button"] {
 	color: white; 
@@ -40,7 +45,6 @@ hr {border: 1px solid white;}
 	background: #0000cc; color: white;
 }
 
-#image {width: 200px; height: 200px;}
 #log {height: 30%; overflow: auto; overflow-x: hidden;}
 #form input[type="button"] {display: inline;}
 
@@ -55,7 +59,7 @@ hr {border: 1px solid white;}
 <body>
 
 <!--<div><canvas id="canvas" width="200" height="200"/></div>-->
-<div align="center"><img id="image" alt="image"/></div>
+<div><img id="image" align="center" alt="image"/></div>
 <div id="log"></div>
 <div><form id="form" align="center"></form></div>
 <script>onLoad()</script>
