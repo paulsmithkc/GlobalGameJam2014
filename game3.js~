@@ -116,9 +116,9 @@ function onLoad() {
 function loadImage(path) {
 	var fullPath = ICONS_FOLDER + path;
 	var image = $("#image");
-	image.fadeTo("1s", 0.0, function() {
+	image.fadeTo(1000, 0.0, function() {
 		image.attr("src", fullPath);
-		image.fadeTo("1s", 1.0);
+		image.fadeTo(1000, 1.0);
 	});
 }
 
@@ -130,13 +130,12 @@ function appendLog(text) {
 	var div = document.createElement("div");
 	div.innerHTML = text;
 	g_log.appendChild(div);
-	g_log.scrollTop = g_log.scrollHeight;
 }
 
 function appendSeperator() {
 	var hr = document.createElement("hr");
 	g_log.appendChild(hr);
-	g_log.scrollTop = g_log.scrollHeight;
+	$(g_log).animate({scrollTop : g_log.scrollHeight});
 }
 
 function option(text, callback) {
@@ -183,7 +182,7 @@ function onNewGame() {
 	clearLog();
 	appendLog( 
 		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
-		"Before you stands Zeus. &quot;Before you stand three items: Fire, Earth, and Water. " +
+		"Before you stands Zeus. &#8220;Before you stand three items: Fire, Earth, and Water. " +
 		"You must choose one of these.&quot; "
 	);
 	appendSeperator();
