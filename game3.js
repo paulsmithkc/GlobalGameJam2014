@@ -195,9 +195,9 @@ function onNewGame() {
 	playSound("narrator");
 	clearLog();
 	appendLog( 
-		"Your eyes open. The light blinds your eyes, but slowly becomes bearable. " +
-		"Before you stands Zeus. &#8220;Before you stand three items: Fire, Earth, and Water. " +
-		"You must choose one of these.&quot; "
+		"Your eyes are open. The light is blinding you, but slowly becomes bearable. " +
+        "Before you stands Zeus. He speaks, &#8220;There are three items in front of you: Fire, Earth, and Water. You must choose one.&quot; " +
+        ""
 	);
 	setOptions(false, [
 		option("Choose Fire", onChooseFire), 
@@ -212,34 +212,31 @@ function onChooseFire() {
 	loadImage("fire.svg");
 	playSound("Fire");
 	appendLog( 
-		"&#8220;When you return you will need to make another choice. " +
-		"You may help build the bridge with the rest of your village. " +
-		"Or you may seek out the oracle, to learn from her. " +
-		"Or you may seek to become a warrior for the roman legion. &quot; "
+		"&#8220;Since you choose fire, now I give you three more options, which will define your destiny.  You may help build the bridge with the rest of your village. Or you may seek out the oracle, to grow in knowledge. Or you may choose to become a warrior for the roman legion. &quot; "
 	);
 	setOptions(false, [
-		option("Help the town finish the bridge", onBuildBridge),
-		option("Seek out the oracle", onSeekOracle),
-		option("Become a warrior the roman legion", onBecomeWarrior)
+		option("Build the bridge", onBuildBridge),
+        option("Seek the Oracle", onSeekOracle),
+        option("Become a warrior", onBecomeWarrior)
 	]);
 	scrollLog();
 }
 
 function onChooseEarth() {
-	g_curPlaythrough.element = "Earth";
-	loadImage("rock.svg");
-	playSound("Rock");
-	appendLog( 
-		"&#8220;When you return you will need to make another choice. " +
-		"You may help build the bridge with the rest of your village. " +
-		"Or you may seek to become a scout for the roman legion. " +
-		"Or you may seek to become a warrior for the roman legion. &quot; "
-	);
-	setOptions(false, [
-		option("Help the town finish the bridge", onBuildBridge),
-		option("Become a scout for the roman legion", onBecomeScout),
-		option("Become a warrior the roman legion", onBecomeWarrior)
-	]);
+        g_curPlaythrough.element = "Earth";
+        loadImage("rock.svg");
+		playSound("Rock");
+        appendLog( 
+                "&#8220;When you return you will need to make another choice. " +
+                "You may help build the bridge with the rest of your village. " +
+                "Or you may seek to become a scout for the roman legion. " +
+                "Or you may seek to become a warrior for the roman legion. &quot; "
+        );
+        setOptions(false, [
+                option("Help the town finish the bridge", onBuildBridge),
+                option("Become a scout for the roman legion", onBecomeScout),
+                option("Become a warrior the roman legion", onBecomeWarrior)
+        ]);
 	scrollLog();
 }
 
@@ -264,12 +261,13 @@ function onChooseWater() {
 function onBuildBridge() {
 	loadImage("building_a_bridge.svg");
 	appendLog( 
-		"You enjoyed helping the village with the bridge."
-	);
-	setOptions(false, [
-		option("Seek out a craftsman to learn the art of stonework", onCraftsman),
-		option("Try out for the olympic games", onAthlete)
-	]);
+	"You gained experience building the bridge. Now, with your skills, you are ready for the next steps. " +
+            "You can either try out the Olympics or you can be an apprentice at the Master of Crafts. "
+    );
+    setOptions(false, [
+            option("Master of Crafts", onMoc),
+            option("Olympics", onOlympics)
+    ]);
 	scrollLog();
 }
 
@@ -280,8 +278,8 @@ function onSeekOracle() {
 		"You seek out the oracle and spend many years with her. "
 	);
 	setOptions(false, [
-		option("Spread the word of Zeus as a missionary", onPriest),
-		option("Seek out new lands in the name of Zeus", onExplorer)
+		option("Spread the word of Zeus as a missionary", onSpreadingWord),
+                option("Seek out new lands in the name of Zeus", onFindingNewLand)
 	]);
 	scrollLog();
 }
@@ -300,74 +298,101 @@ function onBecomeWarrior() {
 }
 
 function onBecomeScout() {
-	loadImage("scouting.svg");
-	playSound("Scouting");
-	appendLog( 
-		"You join the roman legion as a scout. "
-	);
-	setOptions(false, [
-		option("Become an explorer", onExplorer),
-		option("Try out for the olympic games", onAthlete)
-	]);
+        loadImage("scouting.svg");
+		playSound("Scouting");
+        appendLog( 
+                "You join the roman legion as a scout. "
+        );
+        setOptions(false, [
+                option("Become an explorer", onFindingNewLand),
+                option("Try out for the olympic games", onOlympics)
+        ]);
 	scrollLog();
 }
 
-function onCraftsman() {
-	loadImage("moc.svg");
-	playSound("Semifinal");
-	appendLog("CRAFTSMAN");
-	setOptions(false, [
-		option("New Game", onNewGame)
-	]);
+function onMoc() {
+        loadImage("moc.svg");
+		playSound("Semifinal");
+        appendLog("CRAFTSMAN");
+        setTimeout(onArtist,3000);
 	scrollLog();
 }
 
-function onAthlete() {
-	loadImage("athlete.svg");
-	playSound("Semifinal");
-	appendLog("ATHLETE");
-	setOptions(false, [
-		option("New Game", onNewGame)
-	]);
+function onOlympics() {
+        loadImage("olympics.svg");
+		playSound("Semifinal");
+        appendLog("ATHLETE");
+        setTimeout(onAthlete,3000);
 	scrollLog();
 }
 
-function onPriest() {
-	loadImage("priest.svg");
-	appendLog("PRIEST");
-	setOptions(false, [
-		option("New Game", onNewGame)
-	]);
+function onSpreadingWord() {
+        loadImage("spreading_the_word.svg");
+		playSound("Semifinal");
+        appendLog("PRIEST");
+        setTimeout(onPriest,3000);
 	scrollLog();
 }
 
-function onExplorer() {
-	loadImage("explorer.svg");
-	playSound("Semifinal");
-	appendLog("EXPLORER");
-	setOptions(false, [
-		option("New Game", onNewGame)
-	]);
+function onFindingNewLand() {
+        loadImage("finding_new_land.svg");
+		playSound("Semifinal");
+        appendLog("EXPLORER");
+        setTimeout(onExplorer,3000);
 	scrollLog();
 }
 
 function onProtector() {
-	loadImage("protection_of_realm.svg");
-	playSound("Semifinal");
-	appendLog("PROTECTOR");
-	setOptions(false, [
-		option("New Game", onNewGame)
-	]);
+        loadImage("protection_of_realm.svg");
+		playSound("Semifinal");
+        appendLog("PROTECTOR");
+        setTimeout(onGeneral,3000);
 	scrollLog();
 }
 
 function onPirate() {
-	loadImage("pirate.svg");
-	playSound("Semifinal");
-	appendLog("PIRATE");
-	setOptions(false, [
-		option("New Game", onNewGame)
-	]);
+        loadImage("pirate.svg");
+		playSound("Semifinal");
+        appendLog("PIRATE");
+        setTimeout(onPrisoner,3000);
+}
+
+function onExplorer() {
+    loadImage("explorer.svg");
+    setOptions(false, [
+            option("New Game", onNewGame)
+    ]);
 	scrollLog();
 }
 
+function onPrisoner() {
+    loadImage("prisoner.svg");
+    setOptions(false, [
+            option("New Game", onNewGame)
+    ]);
+}
+
+function onGeneral() {
+    loadImage("general.svg");
+    setOptions(false, [
+            option("New Game", onNewGame)
+    ]);
+}
+function onAthlete() {
+    loadImage("athlete.svg");
+    setOptions(false, [
+            option("New Game", onNewGame)
+    ]);
+}
+function onArtist() {
+    loadImage("artist.svg");
+    setOptions(false, [
+            option("New Game", onNewGame)
+    ]);
+}
+function onPriest() {
+    loadImage("priest.svg");
+    setOptions(false, [
+            option("New Game", onNewGame)
+    ]);
+}
