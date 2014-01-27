@@ -4,13 +4,11 @@ var ICONS_FOLDER = "icons/";
 var g_sound;
 var g_log;
 var g_form;
-var g_kong;
 
 function onLoad() {
 	g_sound = null;
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
-	g_kong = null;
 
 	var images = [
 		"artist.svg",
@@ -40,21 +38,13 @@ function onLoad() {
 		img.src = ICONS_FOLDER + path;
 	}
 
-	if (kongregateAPI != null) {
-		kongregateAPI.loadAPI(onKongLoaded);
-	}
-
+    submitScore("loaded", 1);
 	onNewGame();
 }
 
-function onKongLoaded() {
-	g_kong = kongregateAPI.getAPI();
-	submitScore("loaded", 1);
-}
-
 function submitScore(name, value) {
-	if (g_kong != null) {
-		g_kong.stats.submit(name, value);
+	if (parent && parent.kongregate) {
+		parent.kongregate.stats.submit(name, value);
 	}
 }
 
