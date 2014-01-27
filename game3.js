@@ -142,14 +142,14 @@ function clearLog() {
 
 function appendLog(text) {
 	var div = document.createElement("div");
+	var hr = document.createElement("hr");
 	div.innerHTML = text;
 	g_log.appendChild(div);
+	g_log.appendChild(hr);
 }
 
-function appendSeperator() {
-	var hr = document.createElement("hr");
-	g_log.appendChild(hr);
-	$(g_log).animate({scrollTop : g_log.scrollHeight});
+function scrollLog() {
+	$(g_log).animate({scrollTop : g_log.scrollHeight}, "slow");
 }
 
 function option(text, callback) {
@@ -162,7 +162,6 @@ function option(text, callback) {
 function optionHandler(text, callback) {
 	return function() { 
 		appendLog(text);
-		appendSeperator();
 		callback();
 	};
 }
@@ -200,12 +199,12 @@ function onNewGame() {
 		"Before you stands Zeus. &#8220;Before you stand three items: Fire, Earth, and Water. " +
 		"You must choose one of these.&quot; "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Choose Fire", onChooseFire), 
 		option("Choose Earth", onChooseEarth),
 		option("Choose Water", onChooseWater)
 	]);
+	scrollLog();
 }
 
 function onChooseFire() {
@@ -218,12 +217,12 @@ function onChooseFire() {
 		"Or you may seek out the oracle, to learn from her. " +
 		"Or you may seek to become a warrior for the roman legion. &quot; "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Help the town finish the bridge", onBuildBridge),
 		option("Seek out the oracle", onSeekOracle),
 		option("Become a warrior the roman legion", onBecomeWarrior)
 	]);
+	scrollLog();
 }
 
 function onChooseEarth() {
@@ -236,12 +235,12 @@ function onChooseEarth() {
 		"Or you may seek to become a scout for the roman legion. " +
 		"Or you may seek to become a warrior for the roman legion. &quot; "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Help the town finish the bridge", onBuildBridge),
 		option("Become a scout for the roman legion", onBecomeScout),
 		option("Become a warrior the roman legion", onBecomeWarrior)
 	]);
+	scrollLog();
 }
 
 function onChooseWater() {
@@ -254,12 +253,12 @@ function onChooseWater() {
 		"Or you may seek to become a scout for the roman legion. " +
 		"Or you may seek out the oracle, to learn from her. &quot; "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Help the town finish the bridge", onBuildBridge),
 		option("Seek out the oracle", onSeekOracle),
 		option("Become a scout for the roman legion", onBecomeScout)
 	]);
+	scrollLog();
 }
 
 function onBuildBridge() {
@@ -267,11 +266,11 @@ function onBuildBridge() {
 	appendLog( 
 		"You enjoyed helping the village with the bridge."
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Seek out a craftsman to learn the art of stonework", onCraftsman),
 		option("Try out for the olympic games", onAthlete)
 	]);
+	scrollLog();
 }
 
 function onSeekOracle() {
@@ -280,11 +279,11 @@ function onSeekOracle() {
 	appendLog( 
 		"You seek out the oracle and spend many years with her. "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Spread the word of Zeus as a missionary", onPriest),
 		option("Seek out new lands in the name of Zeus", onExplorer)
 	]);
+	scrollLog();
 }
 
 function onBecomeWarrior() {
@@ -293,11 +292,11 @@ function onBecomeWarrior() {
 	appendLog( 
 		"You join the roman legion as a warrior, and fight in many battles. "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Become a protector of the realm", onProtector),
 		option("Become a pirate", onPirate)
 	]);
+	scrollLog();
 }
 
 function onBecomeScout() {
@@ -306,69 +305,69 @@ function onBecomeScout() {
 	appendLog( 
 		"You join the roman legion as a scout. "
 	);
-	appendSeperator();
 	setOptions(false, [
 		option("Become an explorer", onExplorer),
 		option("Try out for the olympic games", onAthlete)
 	]);
+	scrollLog();
 }
 
 function onCraftsman() {
 	loadImage("moc.svg");
 	playSound("Semifinal");
 	appendLog("CRAFTSMAN");
-	appendSeperator();
 	setOptions(false, [
 		option("New Game", onNewGame)
 	]);
+	scrollLog();
 }
 
 function onAthlete() {
 	loadImage("athlete.svg");
 	playSound("Semifinal");
 	appendLog("ATHLETE");
-	appendSeperator();
 	setOptions(false, [
 		option("New Game", onNewGame)
 	]);
+	scrollLog();
 }
 
 function onPriest() {
 	loadImage("priest.svg");
 	appendLog("PRIEST");
-	appendSeperator();
 	setOptions(false, [
 		option("New Game", onNewGame)
 	]);
+	scrollLog();
 }
 
 function onExplorer() {
 	loadImage("explorer.svg");
 	playSound("Semifinal");
 	appendLog("EXPLORER");
-	appendSeperator();
 	setOptions(false, [
 		option("New Game", onNewGame)
 	]);
+	scrollLog();
 }
 
 function onProtector() {
 	loadImage("protection_of_realm.svg");
 	playSound("Semifinal");
 	appendLog("PROTECTOR");
-	appendSeperator();
 	setOptions(false, [
 		option("New Game", onNewGame)
 	]);
+	scrollLog();
 }
 
 function onPirate() {
 	loadImage("pirate.svg");
 	playSound("Semifinal");
 	appendLog("PIRATE");
-	appendSeperator();
 	setOptions(false, [
 		option("New Game", onNewGame)
 	]);
+	scrollLog();
 }
 
