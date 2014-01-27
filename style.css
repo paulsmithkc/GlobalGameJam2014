@@ -31,7 +31,7 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
 #image {
     padding: 0px; 
     border: 0px; 
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
 }
 #form input[type="button"] {
     color: white; 
@@ -52,11 +52,11 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
 }
 
 #image {height: 50%; opacity: 0.0;}
-#log {height: 30%; padding: 0px 20%; overflow: auto; overflow-x: hidden;}
+#log {height: 30%; padding: 0px 20%; margin: 5px 0px; overflow: auto; overflow-x: hidden;}
 #form input[type="button"] {display: inline;}
 
 @media (max-width: 600px)
 {
-    #log {height: 25%; padding: 0px 10px;}
-    #form input[type="button"] {display: block; width:100%;}
+    #log {height: 25%;}
+    #form input[type="button"] {display: block; width: 100%;}
 }

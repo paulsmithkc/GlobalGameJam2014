@@ -3,22 +3,24 @@
 <title>Judgement</title>
 <meta name="viewport" content="width=device-width"/>
 <script src="jquery-2.1.0.min.js"></script>
+<script src="swfobject.js"></script>
+<script src="http://www.kongregate.com/javascripts/kongregate_api.js"></script>
 <script src="game3.js"></script>
 <link href='style.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<!--
 <audio id="ambient-player" autoplay loop>
 <source src="ambient.mp3" type="audio/mp3">
 <source src="ambient.ogg" type="audio/ogg">
 </audio>
--->
 
+<div width="600" height="500">
 <div align="center" id="image-container"><img id="image"/></div>
 <div id="log"></div>
 <div><form id="form" align="center"></form></div>
 <script>onLoad()</script>
+</div>
 
 </body>
 </html>

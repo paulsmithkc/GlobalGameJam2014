@@ -1,71 +1,16 @@
 
-var TAU = 2.0 * Math.PI;
 var ICONS_FOLDER = "icons/";
-var STORAGE_VERSION = "0.1";
-var STORAGE_KEY = "judgement";
 
 var g_sound;
 var g_log;
 var g_form;
-
-var g_prevPlaythrough;
-var g_curPlayThrough;
-
-function playthrough(element) {
-	return { 
-		"element" : element
-	};
-}
-
-function supportsLocalStorage()
-{
-    try {
-        return 'localStorage' in window && window['localStorage'] !== null;
-    } catch (e) {
-        return false;
-    }
-}
-
-function loadData()
-{
-    if (!supportsLocalStorage()) return false;
-    try
-    {
-        var storage = window.localStorage;
-        var storedData = JSON.parse(storage.getItem(STORAGE_KEY));
-        if (storedData == null || storedData.version != STORAGE_VERSION) { return false; }
-        g_curPlaythrough = storedData.playthrough;
-        return true;
-    }
-    catch (e)
-    {
-        return false;
-    }
-}
-
-function saveData()
-{
-    if (!supportsLocalStorage()) return false;
-    try
-    {
-        var storage = window.localStorage;
-        var storedData = {
-            'version': STORAGE_VERSION,
-            'playthrough': g_curPlaythrough
-        };
-        storage.setItem(STORAGE_KEY, JSON.stringify(storedData));
-        return true;
-    }
-    catch (e)
-    {
-        return false;
-    }
-}
+var g_kong;
 
 function onLoad() {
 	g_sound = null;
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
+	g_kong = null;
 
 	var images = [
 		"artist.svg",
@@ -95,24 +40,21 @@ function onLoad() {
 		img.src = ICONS_FOLDER + path;
 	}
 
-	if (!loadData()) {
-		var prevElement = null;
-		switch (Math.floor(Math.random() * 3.0)) {
-		case 0.0:
-			prevElement = "Fire"
-			break;
-		case 1.0:
-			prevElement = "Water"
-			break;
-		case 2.0:
-		default:
-			prevElement = "Earth"
-			break;
-		}
-		g_curPlaythrough = playthrough(prevElement);
+	if (kongregateAPI != null) {
+		kongregateAPI.loadAPI(onKongLoaded);
 	}
 
 	onNewGame();
+}
+
+function onKongLoaded() {
+	g_kong = kongregateAPI.getAPI();
+}
+
+function submitScore(name, value) {
+	if (g_kong != null) {
+		g_kong.stats.submit(name, value);
+	}
 }
 
 function loadImage(path) {
@@ -190,9 +132,6 @@ function setOptions(allowText, options) {
 // LAYER 0
 
 function onNewGame() {
-	g_prevPlaythrough = JSON.parse(JSON.stringify(g_curPlaythrough))
-	saveData();
-
 	loadImage("god.svg");
 	playSound("narrator");
 	clearLog();
@@ -212,7 +151,6 @@ function onNewGame() {
 // LAYER 1
 
 function onChooseFire() {
-	g_curPlaythrough.element = "Fire";
 	loadImage("fire.svg");
 	playSound("Fire");
 	appendLog( 
@@ -227,7 +165,6 @@ function onChooseFire() {
 }
 
 function onChooseEarth() {
-        g_curPlaythrough.element = "Earth";
         loadImage("rock.svg");
 		playSound("Rock");
         appendLog( 
@@ -245,7 +182,6 @@ function onChooseEarth() {
 }
 
 function onChooseWater() {
-	g_curPlaythrough.element = "Water";
 	loadImage("water.svg");
 	playSound("Water");
 	appendLog( 
@@ -418,3 +354,4 @@ function onPriest() {
             option("New Game", onNewGame)
     ]);
 }
+
