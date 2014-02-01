@@ -4,11 +4,15 @@ var ICONS_FOLDER = "icons/";
 var g_sound;
 var g_log;
 var g_form;
+var g_kong;
+var g_muted;
 
 function onLoad() {
 	g_sound = null;
 	g_log = document.getElementById("log");
 	g_form = document.getElementById("form");
+	g_kong = null;
+    g_muted = false;
 
 	var images = [
 		"artist.svg",
@@ -38,13 +42,21 @@ function onLoad() {
 		img.src = ICONS_FOLDER + path;
 	}
 
-    submitScore("loaded", 1);
+	if (kongregateAPI != null) {
+		kongregateAPI.loadAPI(onKongLoaded);
+	}
+
 	onNewGame();
 }
 
+function onKongLoaded() {
+	g_kong = kongregateAPI.getAPI();
+	submitScore("loaded", 1);
+}
+
 function submitScore(name, value) {
-	if (parent && parent.kongregate) {
-		parent.kongregate.stats.submit(name, value);
+	if (g_kong != null) {
+		g_kong.stats.submit(name, value);
 	}
 }
 
@@ -57,8 +69,18 @@ function loadImage(path) {
 	});
 }
 
+function onMute() {
+    g_muted = !g_muted;
+    var mute = document.getElementById("mute");
+    mute.innerHTML = g_muted ? "Unmute" : "Mute"
+    var ambient = document.getElementById("ambient");
+    ambient.muted = g_muted;
+    if (g_sound != null) { g_sound.muted = g_muted; }
+}
+
 function playSound(name) {
-	if (g_sound == null) { 
+    if (g_muted) {
+    } else if (g_sound == null) { 
 		g_sound = new Audio("sfx/" + name + ".mp3");
 		g_sound.play();
 	} else {
@@ -124,7 +146,7 @@ function setOptions(allowText, options) {
 
 function onNewGame() {
 	loadImage("god.svg");
-	playSound("narrator");
+	playSound("Zeus");
 	clearLog();
 	appendLog( 
 		"Your eyes are open. The light is blinding you, but slowly becomes bearable. " +
@@ -193,6 +215,7 @@ function onChooseWater() {
 
 function onBuildBridge() {
 	loadImage("building_a_bridge.svg");
+    playSound("Bridge");
 	appendLog( 
 	"You gained experience building the bridge. Now, with your skills, you are ready for the next steps. " +
             "You can either try out the Olympics or you can be an apprentice at the Master of Crafts. "

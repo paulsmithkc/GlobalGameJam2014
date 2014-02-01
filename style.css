@@ -12,7 +12,7 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-color: #665040;
-    background-size: 100%;
+    /*background-size: 100%;*/
     color: white; 
     border: 0px; 
     margin: 0px; 
@@ -29,6 +29,17 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
     box-shadow: 0px 0px 100px black;
 }
 
+#mute {
+    background: black;
+    display: inline;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: center;
+    cursor: hand;
+}
 #image {
     padding: 0px; 
     border: 0px; 
@@ -47,6 +58,7 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
     border-radius: 10px;
     font-size: 14pt;
     font-family: 'IM Fell English', serif;
+    cursor: hand;
 }
 #form input[type="button"]:hover {
     background: #0000cc; color: white;
@@ -54,10 +66,12 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
 
 #image {height: 50%; opacity: 0.0;}
 #log {height: 30%; padding: 0px 20%; margin: 5px 0px; overflow: auto; overflow-x: hidden;}
+#form {height: 20%;}
 #form input[type="button"] {display: inline;}
 
 @media (max-width: 600px)
 {
     #log {height: 25%;}
+    #form {height: 25%;}
     #form input[type="button"] {display: block; width: 100%;}
 }
