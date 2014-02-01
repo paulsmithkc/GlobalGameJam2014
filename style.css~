@@ -58,6 +58,7 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
     border-radius: 10px;
     font-size: 14pt;
     font-family: 'IM Fell English', serif;
+    cursor: hand;
 }
 #form input[type="button"]:hover {
     background: #0000cc; color: white;

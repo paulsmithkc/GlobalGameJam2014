@@ -66,12 +66,10 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
 
 #image {height: 50%; opacity: 0.0;}
 #log {height: 30%; padding: 0px 20%; margin: 5px 0px; overflow: auto; overflow-x: hidden;}
-#form {height: 20%;}
 #form input[type="button"] {display: inline;}
 
 @media (max-width: 600px)
 {
     #log {height: 25%;}
-    #form {height: 25%;}
     #form input[type="button"] {display: block; width: 100%;}
 }
