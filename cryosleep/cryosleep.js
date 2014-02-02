@@ -1,177 +1,72 @@
 
-var TAU = 2.0 * Math.PI;
-var ICONS_FOLDER = "icons/";
-var STORAGE_VERSION = "0.1";
-var STORAGE_KEY = "cryosleep";
-
-var g_log;
-var g_form;
-var g_playthrough;
-
-function supportsLocalStorage()
-{
-    try {
-        return 'localStorage' in window && window['localStorage'] !== null;
-    } catch (e) {
-        return false;
-    }
-}
-
-function loadData()
-{
-    if (!supportsLocalStorage()) return false;
-    try
-    {
-        var storage = window.localStorage;
-        var storedData = JSON.parse(storage.getItem(STORAGE_KEY));
-        if (storedData == null || storedData.version != STORAGE_VERSION) { return false; }
-        g_playthrough = storedData.playthrough;
-        return true;
-    }
-    catch (e)
-    {
-        return false;
-    }
-}
-
-function saveData()
-{
-    if (!supportsLocalStorage()) return false;
-    try
-    {
-        var storage = window.localStorage;
-        var storedData = {
-            'version': STORAGE_VERSION,
-            'playthrough': g_playthrough
-        };
-        storage.setItem(STORAGE_KEY, JSON.stringify(storedData));
-        return true;
-    }
-    catch (e)
-    {
-        return false;
-    }
-}
+var gEngine = null;
 
 function onLoad() {
-	g_log = document.getElementById("log");
-	g_form = document.getElementById("form");
-
-	if (!loadData()) {
-		g_playthrough = {
-		"wakeup" : null,
-		"wakeup_who" : "",
-		"wakeup_what" : "",
-		"wakeup_why" : "",
-		"engine" : null,
-		"engine_who" : "",
-		"engine_what" : "",
-		"engine_why" : "",
-		"sickbay" : null,
-		"sickbay_who" : "",
-		"sickbay_what" : "",
-		"sickbay_why" : "",
-		"pod" : null,
-		"pod_who" : "",
-		"pod_what" : "",
-		"pod_why" : "",
+    gEngine = new Engine({
+        "storageKey" : "cryosleep",
+        "storageVersion" : "0.1",
+        "imgFolder" : "img/",
+        "sfxFolder" : "sfx/",
+        "imageID" : "image",
+        "logID" : "log",
+        "optionsID" : "form",
+        "muteID" : "mute",
+        "ambientID" : "ambient"
+    });
+    
+    if (!gEngine.loadData()) {
+		gEngine.data = {
+            "wakeup" : null,
+            "wakeup_who" : "",
+            "wakeup_what" : "",
+            "wakeup_why" : "",
+            "engine" : null,
+            "engine_who" : "",
+            "engine_what" : "",
+            "engine_why" : "",
+            "sickbay" : null,
+            "sickbay_who" : "",
+            "sickbay_what" : "",
+            "sickbay_why" : "",
+            "pod" : null,
+            "pod_who" : "",
+            "pod_what" : "",
+            "pod_why" : ""
 		};
 	}
-
-	onNewGame();
-}
-
-function loadImage(path) {
-	var fullPath = ICONS_FOLDER + path;
-	var image = $("#image");
-	image.fadeTo("1s", 0.0, function() {
-		image.attr("src", fullPath);
-		image.fadeTo("1s", 1.0);
-	});
-}
-
-function clearLog() {
-	g_log.innerHTML = null;
-}
-
-function appendLog(text) {
-	var div = document.createElement("div");
-	div.innerHTML = text;
-	g_log.appendChild(div);
-	g_log.scrollTop = g_log.scrollHeight;
-}
-
-function appendSeperator() {
-	var hr = document.createElement("hr");
-	g_log.appendChild(hr);
-	g_log.scrollTop = g_log.scrollHeight;
-}
-
-function option(text, callback) {
-	return {
-		"text": text,
-		"callback": callback
-	};
-}
-
-function optionHandler(text, callback) {
-	return function() { 
-		appendLog(text);
-		appendSeperator();
-		callback();
-	};
-}
-
-function setOptions(allowText, options) {
-	g_form.innerHTML = "";
-
-	if (allowText) {
-		var textField = document.createElement("input");
-		textField.name = "text";
-		textField.type = "text";
-		textField.value = "";
-		g_form.appendChild(textField);
-	}
-
-	for (var i = 0; i < options.length; i++) {
-		var optionField = document.createElement("input");
-		optionField.name = "option";
-		optionField.type = "button";
-		optionField.value = options[i].text;
-		optionField.onclick = optionHandler(options[i].text, options[i].callback);
-		g_form.appendChild(optionField);
-	}
+    
+    onNewGame();
 }
 
 function onNewGame() {
-	saveData();
+	gEngine.saveData();
 
 	var prompt = 
 		"Your eyes open and adjust to the light. " +
 		"Your cryosleep chamber has been activated. ";
 	var options = [];
-	if (g_playthrough.wakeup == null) {
+	if (gEngine.data.wakeup === null) {
 		options = [
-		option("Survey the room", onCryosleepSurvey),
-		option("Head to the engine room", onEngine),
-		option("Head to the sickbay", onSickbay),
-		option("Head for an escape pod", onPod)
+            option("Survey the room", onCryosleepSurvey),
+            option("Head to the engine room", onEngine),
+            option("Head to the sickbay", onSickbay),
+            option("Head for an escape pod", onPod)
 		];
 	} else {
 		prompt += "You see somebody else in the room.";
 		options = [
-		option("Who are you?", onCryosleepWho),
-		option("What is going on?", onCryosleepWhat),
-		option("Why did you wake me up?", onCryosleepWhy),
-		option("Kill them", onCryosleepKill),
-		option("Tell them to head for an escape pod", onCryosleepSpare)
+            option("Who are you?", onCryosleepWho),
+            option("What is going on?", onCryosleepWhat),
+            option("Why did you wake me up?", onCryosleepWhy),
+            option("Kill them", onCryosleepKill),
+            option("Tell them to head for an escape pod", onCryosleepSpare)
 		];
 	}
 
-	clearLog();
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
+	gEngine.clearLog();
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
 }
 
 function onCryosleepSurvey() {
@@ -180,44 +75,44 @@ function onCryosleepSurvey() {
 		"Looks like you aren't the first one wake up. " +
 		"However, several of your crewmates still haven't been awoken.";
 	var options = [
-	option("Try to wake them up", onWakeupOthers),
-	option("Head to the engine room", onEngine),
-	option("Head to the sickbay", onSickbay),
-	option("Head for an escape pod", onPod)
+        option("Try to wake them up", onWakeupOthers),
+        option("Head to the engine room", onEngine),
+        option("Head to the sickbay", onSickbay),
+        option("Head for an escape pod", onPod)
 	];
 
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
 }
 
 function onCryosleepWho() {
 	var prompt = "";
-	if (g_playthrough.wakeup == "kill") {
-		g_playthrough.wakeup = null;
+	if (gEngine.data.wakeup == "kill") {
+		gEngine.data.wakeup = null;
 		saveData();
 		prompt = 
 			"They grab a sharp piece of metal and stab you. " +
 			"As you bleed out, they run away." + 
 			"<br/><br/>GAME OVER";
 		var options = [
-		option("New Game", onNewGame)
+            option("New Game", onNewGame)
 		];
 		setOptions(false, options);
 	} else {
 		prompt = 
-			g_playthrough.wakeup_who != "" ?
-			g_playthrough.wakeup_who : 
+			gEngine.data.wakeup_who != "" ?
+			gEngine.data.wakeup_who : 
 			"They stare out you silently.";
 	}
-	appendLog(prompt);
-	appendSeperator();
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
 }
 
 function onCryosleepWhat() {
 	var prompt = "";
-	if (g_playthrough.wakeup == "kill") {
-		g_playthrough.wakeup = null;
+	if (gEngine.data.wakeup == "kill") {
+		gEngine.data.wakeup = null;
 		saveData();
 		prompt = 
 			"They grab a sharp piece of metal and stab you. " +
@@ -229,18 +124,18 @@ function onCryosleepWhat() {
 		setOptions(false, options);
 	} else {
 		prompt = 
-			g_playthrough.wakeup_what != "" ?
-			g_playthrough.wakeup_what : 
+			gEngine.data.wakeup_what != "" ?
+			gEngine.data.wakeup_what : 
 			"They stare out you silently.";
 	}
-	appendLog(prompt);
-	appendSeperator();
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
 }
 
 function onCryosleepWhy() {
 	var prompt = "";
-	if (g_playthrough.wakeup == "kill") {
-		g_playthrough.wakeup = null;
+	if (gEngine.data.wakeup == "kill") {
+		gEngine.data.wakeup = null;
 		saveData();
 		prompt = 
 			"They grab a sharp piece of metal and stab you. " +
@@ -252,35 +147,35 @@ function onCryosleepWhy() {
 		setOptions(false, options);
 	} else {
 		prompt = 
-			g_playthrough.wakeup_why != "" ?
-			g_playthrough.wakeup_why : 
+			gEngine.data.wakeup_why != "" ?
+			gEngine.data.wakeup_why : 
 			"They stare out you silently.";
 	}
-	appendLog(prompt);
-	appendSeperator();
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
 }
 
 function onCryosleepKill() {
-	g_playthrough.wakeup = null;
-	saveData();
+	gEngine.data.wakeup = null;
+	gEngine.saveData();
 
 	var prompt = 
 		"You quickly grab them by them around the neck and choke the life out of them.";
 	var options = [
-	option("Head to the engine room", onEngine),
-	option("Head to the sickbay", onSickbay),
-	option("Head for an escape pod", onPod)
+        option("Head to the engine room", onEngine),
+        option("Head to the sickbay", onSickbay),
+        option("Head for an escape pod", onPod)
 	];
 
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
 }
 
 function onCryosleepSpare() {
 	var prompt = "";
-	if (g_playthrough.wakeup == "kill") {
-		g_playthrough.wakeup = null;
+	if (gEngine.data.wakeup == "kill") {
+		gEngine.data.wakeup = null;
 		saveData();
 		prompt = 
 			"They grab a sharp piece of metal and stab you. " +
@@ -291,20 +186,82 @@ function onCryosleepSpare() {
 		];
 		setOptions(false, options);
 	} else {
-		g_playthrough.wakeup = null;
-		saveData();
+		gEngine.data.wakeup = null;
+		gEngine.saveData();
 		prompt = 
 			"Without a second thought, they head off towards the escape pods.";
 		var options = [
-		option("Head to the engine room", onEngine),
-		option("Head to the sickbay", onSickbay),
-		option("Head for an escape pod", onPod)
+            option("Head to the engine room", onEngine),
+            option("Head to the sickbay", onSickbay),
+            option("Head for an escape pod", onPod)
 		];
 	}
 
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
+}
+
+function onWakeupOthers() {
+	var prompt = 
+		"You fuddle around with the controls and manage to open one of the chambers. ";
+	var options = [
+        option("Talk to them", onWakeupOthersTalk),
+        option("Kill them", onWakeupOthersKill)
+	];
+
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
+}
+
+function onWakeupOthersTalk() {
+    var questions = [
+        question("Who are you?", "who"),
+        question("What is happening?", "what"),
+        question("Why did you wake me up?", "why")
+	];
+	var options = [
+        option("Confirm", onWakeupOthersTalk2)
+	];
+
+	gEngine.scrollLog();
+	gEngine.setQuestions(questions, options);
+}
+
+function onWakeupOthersTalk2() {
+	// FIXME: ask for who, what, why
+	gEngine.data.wakeup = "talk";
+	gEngine.data.wakeup_who = gEngine.options.elements["who"].value;
+	gEngine.data.wakeup_what = gEngine.options.elements["what"].value;
+	gEngine.data.wakeup_why = gEngine.options.elements["why"].value;
+	gEngine.saveData();
+
+	var prompt = 
+		"To be continued... ";
+	var options = [
+        option("New Game", onNewGame)
+	];
+
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
+}
+
+function onWakeupOthersKill() {
+	gEngine.data.wakeup = "kill";
+	gEngine.saveData();
+
+	var prompt = 
+		"You grab a sharp piece of metal and get ready to stab them. " +
+		"<br/><br/>To be continued... ";
+	var options = [
+        option("New Game", onNewGame)
+	];
+
+	gEngine.appendLog(prompt);
+	gEngine.scrollLog();
+	gEngine.setOptions(options);
 }
 
 function onEngine() {
@@ -315,53 +272,3 @@ function onSickbay() {
 
 function onPod() {
 }
-
-function onWakeupOthers() {
-	var prompt = 
-		"You fuddle around with the controls and manage to open one of the chambers. ";
-	var options = [
-	option("Talk to them", onWakeupOthersTalk),
-	option("Kill them", onWakeupOthersKill)
-	];
-
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
-}
-
-function onWakeupOthersTalk() {
-	// FIXME: ask for who, what, why
-	g_playthrough.wakeup = "talk";
-	g_playthrough.wakeup_who = "";
-	g_playthrough.wakeup_what = "";
-	g_playthrough.wakeup_why = "";
-	saveData();
-
-	var prompt = 
-		"Who are you? What is happening? Why did you wake me up? " +
-		"<br/><br/>To be continued... ";
-	var options = [
-	option("New Game", onNewGame)
-	];
-
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
-}
-
-function onWakeupOthersKill() {
-	g_playthrough.wakeup = "kill";
-	saveData();
-
-	var prompt = 
-		"You grab a sharp piece of metal and get ready to stab them. " +
-		"<br/><br/>To be continued... ";
-	var options = [
-	option("New Game", onNewGame)
-	];
-
-	appendLog(prompt);
-	appendSeperator();
-	setOptions(false, options);
-}
-

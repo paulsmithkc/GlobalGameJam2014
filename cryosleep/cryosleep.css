@@ -1,18 +1,7 @@
 @import url('http://fonts.googleapis.com/css?family=Exo+2:600|IM+Fell+English');
 
 body {
-    /*
-    background-color: #6f6f6f; 
-    background-image: url('edge3.png');
-    background-attachment: fixed;
-    background-position: 0px 0px;
-    background-repeat: repeat-x;
-    */
-    background-image: url('bkg.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-color: #665040;
-    /*background-size: 100%;*/
+    background: black;
     color: white; 
     border: 0px; 
     margin: 0px; 
@@ -66,13 +55,27 @@ hr {border: none; border-bottom: 1px solid rgba(255,255,255,0.4);}
 #form input[type="button"]:hover {
     background: #0000cc; color: white;
 }
-
-#image {height: 50%; opacity: 0.0;}
-#log {height: 30%; padding: 0px 20%; margin: 5px 0px; overflow: auto; overflow-x: hidden;}
-#form input[type="button"] {display: inline;}
-
-@media (max-width: 600px)
-{
-    #log {height: 25%;}
-    #form input[type="button"] {display: block; width: 100%;}
+#form label, #form input[type="button"], #form input[type="text"] {
+    display: block;
+    text-align: left;
+    width: 100%;
 }
+#form .questions {
+    margin-bottom: 20px;
+}
+
+#image {
+    height: 10%; 
+    opacity: 0.0;
+}
+#log {
+    height: 50%; 
+    padding: 0px 20px; 
+    margin: 5px 0px; 
+    overflow: auto; 
+    overflow-x: hidden;
+}
+#form {
+    padding: 0px 20px;
+}
+
